@@ -45,7 +45,7 @@ def replace_hex_in_exe(file_path, old_hex_str, new_hex_str):
 
 
 def portsum(port):
-    return str(f"{int(port):04x}"[::-1])
+    return f"{int(port):04x}"[2:4] + f"{int(port):04x}"[0:2]
 
 
 if __name__ == "__main__":
