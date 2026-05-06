@@ -1,25 +1,27 @@
-# 魔方世界端口修改器
+# 魔方世界Alpha 端口修改器
 
-魔方世界默认连接端口为 12345, 使用起来较为不便
+`Cube World Alpha`默认连接端口为 `12345`, 使用起来较为不便
 
-基于
-[Cube-World-Alpha-Client-Port-Switcher](https://github.com/coremaze/Cube-World-Alpha-Client-Port-Switcher/) 使用 python 重写
+逆向游戏文件后, 通过替换`汇编`对应的`hex`来修改端口
+
+新版本应该可以避免之前的修改后报错`客户端版本不匹配`
+
+将匹配的特征改为上下`4`条汇编
+
+- 客户端汇编为
+
+  ```c
+  movq(name) + mov eax,2 + push (端口2字节) 0000 + movq(var_1ch)
+  ```
+
+- 服务端汇编为
+
+  ```c
+  mov eax,2 + movq(name) + push (端口2字节) 0000 + movq(var_1ch)
+  ```
+
+## 务必事先备份对应 EXE 文件
 
 ```
-python changeport.py Cube.exe 原端口 自定义端口
+python changeport.py Cube.exe/Server.exe 自定义端口
 ```
-
-也可修改服务端端口
-
-```
-python changeport.py Server.exe 原端口 自定义端口
-```
-
-# 注意事项
-
-**务必事先备份对应 EXE 文件**
-
-尽量不要使用较小的端口，以防止替换十六进制字符串唯一性错误
-
-修改服务端端口在使用 `汉化版客户端` 或 `Mod` 时可能会报错 `版本不匹配`，非必要不建议修改服务端端口，使用[`frp`](https://github.com/fatedier/frp/)等工具或端口转发即可  
-推荐主机端使用原版客户端，联机端使用修改端口的客户端
