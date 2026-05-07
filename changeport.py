@@ -60,7 +60,7 @@ def find_sig(file, new_port: int):
 if __name__ == "__main__":
 
     if len(argv) < 3:
-        print("changeport exe路径 原端口 修改后的端口")
+        print("changeport exe路径 修改后的端口")
         print("魔方世界默认联机端口为12345")
         print("请务必先备份对应exe !!!")
         exit()
